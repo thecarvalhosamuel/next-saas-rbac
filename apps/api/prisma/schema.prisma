@@ -1,0 +1,140 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt() @map("updated_at")
+  name         String?
+  email        String   @unique
+  passwordHash String?  @map("password_hash")
+  avatarUrl    String?  @map("avatar_url")
+
+  tokens            Token[]
+  accounts          Account[]
+  invites           Invite[]
+  memberOn          Member[]
+  ownsOrganizations Organization[]
+  ownProjects       Project[]
+
+  @@map("users")
+}
+
+enum TokenType {
+  PASSOWRD_RECOVER
+}
+
+model Token {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt() @map("updated_at")
+  type      TokenType
+  userId    String    @map("user_id")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("tokens")
+}
+
+enum AccountProvider {
+  GITHUB
+}
+
+model Account {
+  id               String          @id @default(uuid())
+  provider         AccountProvider
+  provideAccountId String          @unique @map("provider_account_id")
+  userId           String          @map("user_id")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([provider, userId])
+  @@map("accounts")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+  BILLING
+}
+
+model Invite {
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt() @map("updated_at")
+  email          String
+  role           Role
+  authorId       String?  @map("author_id")
+  organizationId String   @map("organization_id")
+
+  author       User?        @relation(fields: [authorId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([email, organizationId])
+  @@index([email])
+  @@map("invites")
+}
+
+model Member {
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt() @map("updated_at")
+  role           Role     @default(MEMBER)
+  organizationId String   @map("organization_id")
+  userId         String   @map("user_id")
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  user         User         @relation(fields: [userId], references: [id])
+
+  @@unique([organizationId, userId])
+  @@map("members")
+}
+
+model Organization {
+  id                        String   @id @default(uuid())
+  createdAt                 DateTime @default(now()) @map("created_at")
+  updatedAt                 DateTime @updatedAt() @map("updated_at")
+  ownerId                   String   @map("owner_id")
+  name                      String
+  slug                      String   @unique
+  domain                    String?  @unique
+  shouldAttachUsersByDomain Boolean? @default(false) @map("should_attach_users_by_domain")
+  avatarUrl                 String?  @map("avatar_url")
+
+  projects Project[]
+  owner    User      @relation(fields: [ownerId], references: [id])
+
+  invites Invite[]
+  members Member[]
+
+  @@map("organizations")
+}
+
+model Project {
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt() @map("updated_at")
+  ownerId        String   @map("owner_id")
+  organizationId String   @map("organization_id")
+  name           String
+  description    String
+  slug           String   @unique
+  avatarUrl      String?  @map("avatar_url")
+
+  owner         User         @relation(fields: [ownerId], references: [id])
+  organizations Organization @relation(fields: [organizationId], references: [id])
+
+  @@map("projects")
+}
