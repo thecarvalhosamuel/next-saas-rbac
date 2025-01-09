@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { hash } from 'bcryptjs'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
@@ -30,6 +31,15 @@ export async function createAccount(app: FastifyInstance) {
           message: 'User with same email already exists!',
         })
       }
+
+      const [, domain] = email.split('@')
+      const autoJoinOrganization = await prisma.organization.findFirst({
+        where: {
+          domain,
+          shouldAttachUsersByDomain: true,
+        },
+      })
+
       const passwordHash = await hash(password, 6)
 
       const user = await prisma.user.create({
@@ -37,6 +47,13 @@ export async function createAccount(app: FastifyInstance) {
           name,
           email,
           passwordHash,
+          memberOn: autoJoinOrganization
+            ? {
+              create: {
+                organizationId: autoJoinOrganization.id,
+              },
+            }
+            : undefined,
         },
       })
 
