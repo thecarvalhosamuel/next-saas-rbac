@@ -21,3 +21,8 @@ Content-Type: application/json
   "email": "samuel@acme.com",
   "password": "123456"
 }
+
+### GET
+GET http://localhost:3333/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MjhiN2VmNy1kZjFmLTQwNWYtYmQ1MC04MWM3ZjFlZjI1NjgiLCJpYXQiOjE3MzYzODY0MDgsImV4cCI6MTczNjk5MTIwOH0.7KMFTu1hd1cOCp0pIQiB26mhN6RGC9VfF_4DgauZECQ
