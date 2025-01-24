@@ -5,23 +5,22 @@ import z from 'zod'
 
 import { prisma } from '@/lib/prisma'
 
+import { BadRequestError } from '../_errors/bad-request'
+
 export async function authenticateWithPassword(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/sessions/password',
     {
       schema: {
-        tags: ['auth'],
-        summary: 'Authenticate with email and password',
+        tags: ['Auth'],
+        summary: 'Authenticate with e-mail & password',
         body: z.object({
           email: z.string().email(),
-          password: z.string().min(6),
+          password: z.string(),
         }),
         response: {
           201: z.object({
             token: z.string(),
-          }),
-          400: z.object({
-            message: z.string(),
           }),
         },
       },
@@ -32,12 +31,12 @@ export async function authenticateWithPassword(app: FastifyInstance) {
         where: { email },
       })
       if (!userFromEmail) {
-        return reply.status(401).send({ message: 'Invalid credentials' })
+        throw new BadRequestError('Invalid credentials')
       }
       if (userFromEmail.passwordHash === null) {
-        return reply
-          .status(401)
-          .send({ message: 'User does not have a password, use social login' })
+        throw new BadRequestError(
+          'User does not have a password, use social login',
+        )
       }
 
       const isPasswordValid = await compare(
@@ -45,17 +44,10 @@ export async function authenticateWithPassword(app: FastifyInstance) {
         userFromEmail.passwordHash,
       )
       if (!isPasswordValid) {
-        return reply.status(401).send({ message: 'Invalid credentials' })
+        throw new BadRequestError('Invalid credentials')
       }
 
-      const token = app.jwt.sign(
-        {
-          sub: userFromEmail.id,
-        },
-        {
-          expiresIn: '7d',
-        },
-      )
+      const token = app.jwt.sign({ sub: userFromEmail.id }, { expiresIn: '7d' })
 
       return reply.status(201).send({ token })
     },
