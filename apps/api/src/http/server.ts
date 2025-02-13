@@ -18,6 +18,7 @@ import { createAccount } from './routes/auth/create-account'
 import { getProfile } from './routes/auth/get-profile'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
+import { createOrganization } from './routes/organizations/create-organization'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
@@ -30,6 +31,11 @@ app.register(fastifySwagger, {
     info: {
       title: 'Next Saas RBAC',
       description: 'Next Saas RBAC API with multi-tenant',
+      contact: {
+        name: 'Samuel',
+        email: 'carvalho.asamuel@gmail.com',
+        url: 'https://github.com/carvalhoasamuel/next-saas-rbac',
+      },
       version: '1.0.0',
     },
     // securityDefinitions: {
@@ -68,6 +74,9 @@ app.register(getProfile)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
 app.register(authenticateWithGithub)
+
+// organizations
+app.register(createOrganization)
 
 app
   .listen({ port: env.SERVER_PORT })

@@ -1,0 +1,10 @@
+
+POST http://localhost:3333/organization
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzYzgxNTQ2Ni1jN2YxLTQ5ZmYtOGJhMi04Y2Y4MDFlYmNiZGYiLCJpYXQiOjE3MzkyMzUzODEsImV4cCI6MTczOTg0MDE4MX0.I3F5WcNl8knrFEiBwpaTq55PcPQgYSxJgDQk7MCnMmw
+
+{
+  "name": "Mais",
+  "domain": "mais.team",
+  "shouldAttachUsersByDomain": true
+}
