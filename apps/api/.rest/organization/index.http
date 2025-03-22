@@ -1,10 +1,14 @@
-
+### create ORGANIZATION
 POST http://localhost:3333/organization
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzYzgxNTQ2Ni1jN2YxLTQ5ZmYtOGJhMi04Y2Y4MDFlYmNiZGYiLCJpYXQiOjE3MzkyMzUzODEsImV4cCI6MTczOTg0MDE4MX0.I3F5WcNl8knrFEiBwpaTq55PcPQgYSxJgDQk7MCnMmw
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMmYzYzc2Zi05M2U3LTQ1ZTgtOTZlNy0zMDI3MTdmZmQwMDciLCJpYXQiOjE3NDIxNjE1ODIsImV4cCI6MTc0Mjc2NjM4Mn0.HrgvN_5bD9CpCjfjYT3czhclNJgyqVo1uA6mazeSbj4"
 {
-  "name": "Mais",
-  "domain": "mais.team",
+  "name": "OAK Labs",
+  "domain": "oak.team",
   "shouldAttachUsersByDomain": true
 }
+
+### get MEMBERSHIP
+GET http://localhost:3333/organizations/teste-1/membership
+Content-Type: application/json
+Authorization: Bearer {{bearer}}

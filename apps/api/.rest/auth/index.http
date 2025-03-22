@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "name": "Samuel",
-  "email": "samuel@acme.com",
+  "email": "samuel@oak.com",
   "password": "123456"
 }
 
@@ -18,11 +18,11 @@ POST http://localhost:3333/sessions/password
 Content-Type: application/json
 
 {
-  "email": "samuel@acme.com",
+  "email": "samuel@oak.com",
   "password": "123456"
 }
 
 ### GET
 GET http://localhost:3333/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzYzgxNTQ2Ni1jN2YxLTQ5ZmYtOGJhMi04Y2Y4MDFlYmNiZGYiLCJpYXQiOjE3MzkyMzUzODEsImV4cCI6MTczOTg0MDE4MX0.I3F5WcNl8knrFEiBwpaTq55PcPQgYSxJgDQk7MCnMmw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MjhiN2VmNy1kZjFmLTQwNWYtYmQ1MC04MWM3ZjFlZjI1NjgiLCJpYXQiOjE3NDIxNjAyMTcsImV4cCI6MTc0Mjc2NTAxN30.VmxFpU2pNwfSwILFJCCcSTHp8_26Dl4-LLrC0eCW9zc
