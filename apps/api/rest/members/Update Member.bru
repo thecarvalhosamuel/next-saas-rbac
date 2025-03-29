@@ -1,0 +1,26 @@
+meta {
+  name: Update Member
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{base_url}}/organizations/:organizationSlug/members/:memberId
+  body: json
+  auth: bearer
+}
+
+params:path {
+  organizationSlug: 
+  memberId: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "role": "USER"
+  }
+}
