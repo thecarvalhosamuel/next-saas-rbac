@@ -18,6 +18,7 @@ import { createAccount } from './routes/auth/create-account'
 import { getProfile } from './routes/auth/get-profile'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
+import { getMembers } from './routes/members/get-memebers'
 import { createOrganization } from './routes/organizations/create-organization'
 import { getMembership } from './routes/organizations/get-membershio'
 import { getOrganization } from './routes/organizations/get-organization'
@@ -101,6 +102,9 @@ app.register(deleteProject)
 app.register(getProject)
 app.register(getProjects)
 app.register(updateProject)
+
+// members
+app.register(getMembers)
 
 app
   .listen({ port: env.SERVER_PORT })
