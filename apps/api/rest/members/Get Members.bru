@@ -1,0 +1,19 @@
+meta {
+  name: Get Members
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/organizations/:organizationSlug/members
+  body: none
+  auth: bearer
+}
+
+params:path {
+  organizationSlug: oak
+}
+
+auth:bearer {
+  token: {{token}}
+}

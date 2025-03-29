@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "next-saas-rbac",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

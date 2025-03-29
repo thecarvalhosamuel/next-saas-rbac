@@ -1,0 +1,24 @@
+meta {
+  name: Create Organization
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/organizations
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Test Org",
+    "domain": "test.org",
+    "shouldAttachUsersByDomain": true
+  }
+  
+}
