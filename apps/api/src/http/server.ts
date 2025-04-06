@@ -22,6 +22,8 @@ import { acceptInvite } from './routes/invates/accept-invite'
 import { createInvite } from './routes/invates/create-invite'
 import { getInvite } from './routes/invates/get-invite'
 import { getInvites } from './routes/invates/get-invites'
+import { rejectInvite } from './routes/invates/reject-invite'
+import { revokeInvite } from './routes/invates/revoke-invite'
 import { getMembers } from './routes/members/get-memebers'
 import { removeMember } from './routes/members/remove-memebers'
 import { updateMember } from './routes/members/update-memebers'
@@ -119,6 +121,8 @@ app.register(createInvite)
 app.register(getInvite)
 app.register(getInvites)
 app.register(acceptInvite)
+app.register(rejectInvite)
+app.register(revokeInvite)
 
 app
   .listen({ port: env.SERVER_PORT })
