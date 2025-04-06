@@ -58,7 +58,7 @@ model Account {
   provideAccountId String          @unique @map("provider_account_id")
   userId           String          @map("user_id")
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, userId])
   @@map("accounts")
@@ -79,8 +79,8 @@ model Invite {
   authorId       String?  @map("author_id")
   organizationId String   @map("organization_id")
 
-  author       User?        @relation(fields: [authorId], references: [id])
-  organization Organization @relation(fields: [organizationId], references: [id])
+  author       User?        @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@unique([email, organizationId])
   @@index([email])
@@ -95,7 +95,7 @@ model Member {
   organizationId String   @map("organization_id")
   userId         String   @map("user_id")
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   user         User         @relation(fields: [userId], references: [id])
 
   @@unique([organizationId, userId])
@@ -134,7 +134,7 @@ model Project {
   avatarUrl      String?  @map("avatar_url")
 
   owner         User         @relation(fields: [ownerId], references: [id])
-  organizations Organization @relation(fields: [organizationId], references: [id])
+  organizations Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@map("projects")
 }
