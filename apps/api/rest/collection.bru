@@ -1,0 +1,14 @@
+auth {
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+script:post-response {
+  function onResponse(res) {
+  let data = res.getBody();
+  bru.setEnvVar("token", data.token);
+  }
+}

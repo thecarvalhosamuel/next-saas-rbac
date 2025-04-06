@@ -1,0 +1,26 @@
+meta {
+  name: Create Invite
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/organizations/:organizationSlug/invites
+  body: json
+  auth: bearer
+}
+
+params:path {
+  organizationSlug: oak
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "email@email.com",
+    "role": "MEMBER"
+  }
+}

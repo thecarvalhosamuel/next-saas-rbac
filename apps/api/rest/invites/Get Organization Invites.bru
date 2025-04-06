@@ -1,0 +1,19 @@
+meta {
+  name: Get Organization Invites
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/organization/:organizationSlug/invites
+  body: none
+  auth: bearer
+}
+
+params:path {
+  organizationSlug: oak
+}
+
+auth:bearer {
+  token: {{token}}
+}
