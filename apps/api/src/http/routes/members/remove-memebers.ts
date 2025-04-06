@@ -14,7 +14,7 @@ const paramsSchema = z.object({
 })
 type ParamsSchema = z.infer<typeof paramsSchema>
 
-export async function removeember(app: FastifyInstance) {
+export async function removeMember(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)

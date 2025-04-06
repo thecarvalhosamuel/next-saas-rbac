@@ -18,8 +18,12 @@ import { createAccount } from './routes/auth/create-account'
 import { getProfile } from './routes/auth/get-profile'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
+import { acceptInvite } from './routes/invates/accept-invite'
+import { createInvite } from './routes/invates/create-invite'
+import { getInvite } from './routes/invates/get-invite'
+import { getInvites } from './routes/invates/get-invites'
 import { getMembers } from './routes/members/get-memebers'
-import { removeember } from './routes/members/remove-memebers'
+import { removeMember } from './routes/members/remove-memebers'
 import { updateMember } from './routes/members/update-memebers'
 import { createOrganization } from './routes/organizations/create-organization'
 import { getMembership } from './routes/organizations/get-membershio'
@@ -108,7 +112,14 @@ app.register(updateProject)
 // members
 app.register(getMembers)
 app.register(updateMember)
-app.register(removeember)
+app.register(removeMember)
+
+// invites
+app.register(createInvite)
+app.register(getInvite)
+app.register(getInvites)
+app.register(acceptInvite)
+
 app
   .listen({ port: env.SERVER_PORT })
   .then(() => console.log('HTTP Server Running'))
