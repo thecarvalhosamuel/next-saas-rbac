@@ -18,10 +18,12 @@ import { createAccount } from './routes/auth/create-account'
 import { getProfile } from './routes/auth/get-profile'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
+import { getOrganizationBilling } from './routes/billing/get-organization-billing'
 import { acceptInvite } from './routes/invates/accept-invite'
 import { createInvite } from './routes/invates/create-invite'
 import { getInvite } from './routes/invates/get-invite'
 import { getInvites } from './routes/invates/get-invites'
+import { getPendingInvites } from './routes/invates/get-pending-invites'
 import { rejectInvite } from './routes/invates/reject-invite'
 import { revokeInvite } from './routes/invates/revoke-invite'
 import { getMembers } from './routes/members/get-memebers'
@@ -123,6 +125,10 @@ app.register(getInvites)
 app.register(acceptInvite)
 app.register(rejectInvite)
 app.register(revokeInvite)
+app.register(getPendingInvites)
+
+// billing
+app.register(getOrganizationBilling)
 
 app
   .listen({ port: env.SERVER_PORT })
